@@ -1,5 +1,5 @@
-const { SlashCommand, CommandOptionType } = require('slash-create');
-const { QueryType } = require('discord-player');
+const { SlashCommand, CommandOptionType } = require("slash-create");
+const { QueryType } = require("discord-player");
 
 module.exports = class extends SlashCommand {
     constructor(creator) {
@@ -11,17 +11,18 @@ module.exports = class extends SlashCommand {
                     name: "query",
                     type: CommandOptionType.STRING,
                     description: "The song you want to play",
-                    required: true
-                }
+                    required: true,
+                },
             ],
 
-            guildIDs: process.env.DISCORD_GUILD_ID ? [ process.env.DISCORD_GUILD_ID ] : undefined
+            guildIDs: process.env.DISCORD_GUILD_ID
+                ? [process.env.DISCORD_GUILD_ID]
+                : undefined,
         });
     }
 
-    async run (ctx) {
-
-        const { client } = require('..');
+    async run(ctx) {
+        const { client } = require("..");
 
         await ctx.defer();
 
@@ -31,27 +32,38 @@ module.exports = class extends SlashCommand {
         const searchResult = await client.player
             .search(query, {
                 requestedBy: ctx.user,
-                searchEngine: QueryType.AUTO
+                searchEngine: QueryType.AUTO,
             })
-            .catch(() => {
-                console.log('he')
+            .catch((err) => {
+                console.log(err);
             });
-            if (!searchResult || !searchResult.tracks.length) return void ctx.sendFollowUp({ content: "No results were found!" });
+        if (!searchResult || !searchResult.tracks.length)
+            return void ctx.sendFollowUp({ content: "No results were found!" });
 
         const queue = await client.player.createQueue(guild, {
-            metadata: channel
+            metadata: channel,
         });
 
-        const member = guild.members.cache.get(ctx.user.id) ?? await guild.members.fetch(ctx.user.id);
+        const member =
+            guild.members.cache.get(ctx.user.id) ??
+            (await guild.members.fetch(ctx.user.id));
         try {
             if (!queue.connection) await queue.connect(member.voice.channel);
         } catch {
             void client.player.deleteQueue(ctx.guildID);
-            return void ctx.sendFollowUp({ content: "Could not join your voice channel!" });
+            return void ctx.sendFollowUp({
+                content: "Could not join your voice channel!",
+            });
         }
 
-        await ctx.sendFollowUp({ content: `⏱ | Loading your ${searchResult.playlist ? "playlist" : "track"}...` });
-        searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
+        await ctx.sendFollowUp({
+            content: `⏱ | Loading your ${
+                searchResult.playlist ? "playlist" : "track"
+            }...`,
+        });
+        searchResult.playlist
+            ? queue.addTracks(searchResult.tracks)
+            : queue.addTrack(searchResult.tracks[0]);
         if (!queue.playing) await queue.play();
     }
-}
+};
