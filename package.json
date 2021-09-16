@@ -15,6 +15,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "ffmpeg": "^0.0.4",
+    "node": "^16.9.1",
     "opusscript": "^0.0.8",
     "slash-create": "^4.0.1"
   },
