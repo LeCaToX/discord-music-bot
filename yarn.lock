@@ -714,6 +714,13 @@
   "resolved" "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
 
+"ffmpeg@^0.0.4":
+  "integrity" "sha1-HEYN+OfaUSf2LO70v6BsWciWMMs="
+  "resolved" "https://registry.npmjs.org/ffmpeg/-/ffmpeg-0.0.4.tgz"
+  "version" "0.0.4"
+  dependencies:
+    "when" ">= 0.0.1"
+
 "find-up@^4.1.0":
   "integrity" "sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw=="
   "resolved" "https://registry.npmjs.org/find-up/-/find-up-4.1.0.tgz"
@@ -1898,6 +1905,11 @@
     "lodash" "^4.7.0"
     "tr46" "^2.1.0"
     "webidl-conversions" "^6.1.0"
+
+"when@>= 0.0.1":
+  "integrity" "sha1-xxMLan6gRpPoQs3J56Hyqjmjn4I="
+  "resolved" "https://registry.npmjs.org/when/-/when-3.7.8.tgz"
+  "version" "3.7.8"
 
 "which@^2.0.1":
   "integrity" "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA=="
