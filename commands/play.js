@@ -64,6 +64,6 @@ module.exports = class extends SlashCommand {
         searchResult.playlist
             ? queue.addTracks(searchResult.tracks)
             : queue.addTrack(searchResult.tracks[0]);
-        if (!queue.playing) await queue.play();
+        if (!queue.playing) await queue.play().catch((err) => console.log(err));
     }
 };
